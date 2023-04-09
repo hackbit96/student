@@ -1,0 +1,17 @@
+server:
+  port: 8082
+  
+spring:
+  r2dbc:
+    url: r2dbc:h2:mem:///testdb
+    username: sa
+    password:
+    initialization-mode: always
+
+student:
+  create:
+    code: ${STUDENT_CREATE_CODE}
+    message: ${STUDENT_CREATE_MESSAGE}
+  empty:
+    code: ${STUDENT_EMPTY_CODE}
+    message: ${STUDENT_EMPTY_MESSAGE}
