@@ -5,6 +5,7 @@ import com.student.student.entity.Student;
 import com.student.student.model.StudentDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MapperUtil {
@@ -25,7 +26,7 @@ public class MapperUtil {
                 .name(student.getName())
                 .lastName(student.getLastName())
                 .age(student.getAge())
-                .status(StatusStudent.ACTIVO.name())
+                .status(ObjectUtils.isEmpty(student.getStatus()) ? StatusStudent.ACTIVO.name() : student.getStatus())
                 .build();
     }
 }

@@ -36,7 +36,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Mono<StudentDto> create(StudentDto student) {
         return repository.findById(student.getId())
-                .doOnNext(encontrado -> log.info("STUDENT ENCONTRADO : {}", encontrado))
+                .doOnNext(existingStudent -> log.info("EXISTING STUDENT: {}", existingStudent))
                 .flatMap(existingStudent -> responseException(student))
                 .switchIfEmpty(repository.create(MapperUtil.mapperStudentCreate(student))
                         .then(Mono.just(student))
