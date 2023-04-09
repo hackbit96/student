@@ -6,13 +6,22 @@ import com.student.student.model.StudentDto;
 
 public class MockData {
 
-    public static StudentDto mapperStudent() {
+    public static StudentDto mapperStudentResponse() {
         return StudentDto.builder()
                 .id(2L)
                 .name("Orlando")
                 .lastName("Camavilca Chavez")
                 .age(20)
                 .status(StatusStudent.ACTIVO.name())
+                .build();
+    }
+
+    public static StudentDto mapperStudentRequest() {
+        return StudentDto.builder()
+                .id(2L)
+                .name("Orlando")
+                .lastName("Camavilca Chavez")
+                .age(20)
                 .build();
     }
 
@@ -33,16 +42,6 @@ public class MockData {
                 .lastName("Camavilca Chavez")
                 .age(20)
                 .status(StatusStudent.ACTIVO.name())
-                .build();
-    }
-
-    public static Student mapperStudentInactivo() {
-        return Student.builder()
-                .id(1L)
-                .name("Orlando")
-                .lastName("Camavilca Chavez")
-                .age(20)
-                .status(StatusStudent.INACTIVO.name())
                 .build();
     }
 

@@ -34,14 +34,15 @@ public class StudentServiceImpl implements StudentService {
     private String emptyCode;
 
     @Override
-    public Mono<StudentDto> create(StudentDto studentDTO) {
-        return repository.findById(studentDTO.getId())
-                .flatMap(existingStudent -> responseException(studentDTO))
-                .switchIfEmpty(repository.create(MapperUtil.mapperStudentCreate(studentDTO))
-                        .then(Mono.just(studentDTO))
+    public Mono<StudentDto> create(StudentDto student) {
+        return repository.findById(student.getId())
+                .doOnNext(encontrado -> log.info("STUDENT ENCONTRADO : {}", encontrado))
+                .flatMap(existingStudent -> responseException(student))
+                .switchIfEmpty(repository.create(MapperUtil.mapperStudentCreate(student))
+                        .then(Mono.just(student))
                         .flatMap(studentDto -> repository.findById(studentDto.getId()))
                         .map(MapperUtil::mapperStudent))
-                .doOnNext(student -> log.info("CREATED STUDENT: {}", student));
+                .doOnNext(studentResponse -> log.info("CREATE STUDENT - [RESPONSE: {}]", studentResponse));
     }
 
     @Override
@@ -49,7 +50,7 @@ public class StudentServiceImpl implements StudentService {
         return repository.findAllByStatus(StatusStudent.ACTIVO.name())
                 .switchIfEmpty(Mono.error(new NotFoundException(emptyMessage, emptyCode)))
                 .map(MapperUtil::mapperStudent)
-                .doOnNext(student -> log.info("RETRIEVED STUDENT: {}", student));
+                .doOnNext(student -> log.info("GET ALL STUDENT - [RESPONSE: {}]: ", student));
     }
 
     private Mono<StudentDto> responseException(StudentDto studentDTO) {

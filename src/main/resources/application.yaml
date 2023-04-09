@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8080
   
 spring:
   r2dbc:
@@ -10,8 +10,8 @@ spring:
 
 student:
   create:
-    code: ${STUDENT_CREATE_CODE}
-    message: ${STUDENT_CREATE_MESSAGE}
+    code: "ERR001"
+    message: "El estudiante con ID %s ya existe"
   empty:
-    code: ${STUDENT_EMPTY_CODE}
-    message: ${STUDENT_EMPTY_MESSAGE}
+    code: "ERR002"
+    message: "No se encontro resultados"

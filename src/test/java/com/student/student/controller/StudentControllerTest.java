@@ -34,16 +34,16 @@ class StudentControllerTest {
 
     @Test
     public void create_WithValidStudent_ReturnsStudent() {
-        when(studentService.create(MockData.mapperStudent()))
-                .thenReturn(Mono.just(MockData.mapperStudent()));
+        when(studentService.create(MockData.mapperStudentResponse()))
+                .thenReturn(Mono.just(MockData.mapperStudentResponse()));
         webTestClient.post()
                 .uri("/v1/student")
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(MockData.mapperStudent())
+                .bodyValue(MockData.mapperStudentResponse())
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(StudentDto.class)
-                .isEqualTo(MockData.mapperStudent());
+                .isEqualTo(MockData.mapperStudentResponse());
     }
 
     @Test
@@ -62,8 +62,8 @@ class StudentControllerTest {
     @Test
     public void getAll_ReturnsListOfStudent() {
         List<StudentDto> outputStudents = Arrays.asList(
-                MockData.mapperStudent(),
-                MockData.mapperStudent()
+                MockData.mapperStudentResponse(),
+                MockData.mapperStudentResponse()
         );
         when(studentService.getAll())
                 .thenReturn(Flux.fromIterable(outputStudents));
